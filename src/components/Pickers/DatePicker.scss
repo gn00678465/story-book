@@ -1,0 +1,120 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+@mixin size($w, $h: $w) {
+  width: $w;
+  height: $h;
+}
+
+.picker {
+  --header-padding: 10px 10px 0 10px;
+  --weekDays-padding: 5px 0;
+  --day-content-size: 28px;
+  --width: 256px;
+  --day-content-bg-color-hover: rgba(204,214,224,.3);
+}
+
+.picker {
+  max-width: var(--width);
+  font-size: 16px;
+  border-color: #cbd5e0;
+  border-width: 1px;
+  border-radius: 8px;
+  background-color: #fff;
+  border-style: solid;
+}
+
+.picker-header {
+  padding: var(--header-padding);
+  display: flex;
+  justify-content: space-between;
+  .btn {
+    color: #718096;
+    pointer-events: auto;
+    border-width: 2px;
+    border-radius: 4px;
+    border-color: transparent;
+    border-style: solid;
+    user-select: none;
+    cursor: pointer;
+  }
+  .btn:hover {
+    opacity: 0.5;
+    background-color: #e2e8f0;
+  }
+  .btn:focus {
+    border-color: #e2e8f0;
+  }
+}
+
+.picker-body {
+  .weekDays {
+    width: 100%;
+    display: flex;
+    padding: var(--weekDays-padding);
+  }
+  .weekDay {
+    flex: 1 0 0;
+    font-size: 0.9em;
+    font-weight: 700;
+    color: #a0aec0;
+  }
+  .weeks {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 0.25em 0;
+  }
+  .days {
+    position: relative;
+  }
+  .days.active .day-layer,
+  .days.today .day-layer{
+    width: 100%;
+    height: 100%;
+    background: #0074D8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border-radius: 9999px;
+  }
+  .day-box {
+    @include size(#{var(--day-content-size)});
+    padding: 0.5em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+  .day-box:hover,
+  .day-box:focus {
+    background: var(--day-content-bg-color-hover);
+  }
+  .days.active .day-box,
+  .days.today .day-box {
+    color: #fff;
+    font-weight: 700;
+  }
+}
