@@ -18,6 +18,15 @@ button {
   border: none;
 }
 
+input {
+  outline: none;
+  margin: 0;
+  border: 1px solid transparent;
+  box-shadow: none;
+  width: 100%;
+  font-family: inherit;
+}
+
 @mixin size($w, $h: $w) {
   width: $w;
   height: $h;
@@ -29,9 +38,57 @@ button {
   --day-content-size: 28px;
   --width: 256px;
   --day-content-bg-color-hover: rgba(204,214,224,.3);
+  --input-height: 2.5em;
+  position: relative;
 }
 
 .picker {
+  &-input-group {
+    position: relative;
+  }
+  &-input {
+    font-size: 1em;
+    height: var(--input-height);
+    line-height: 1.5;
+    background-color: #fff;
+    box-shadow: inset 0 0.0625em 0.125em rgba(10,10,10,.05);
+    border-color: #dbdbdb;
+    border-radius: 5px;
+    padding: 0 40px;
+    color: #363636;
+    transition: all 0.4s ease;
+  }
+  &-input::placeholder {
+    color: #666;
+  }
+  &-input:hover {
+    border-color: #b5b5b5;
+  }
+  &-input:active,
+  &-input:focus {
+    border-color: #3273dc;
+    box-shadow: 0 0 0 0.125em rgba(50,115,220,.25);
+  }
+  &-input-icon {
+    @include size(20px);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: #dbdbdb;
+    transition: fill 0.4s ease;
+  }
+  &-input:active + &-input-icon,
+  &-input:focus + &-input-icon {
+    fill: #363636;
+  }
+  .icon-calendar {
+    left: 10px;
+  }
+}
+
+.picker-panel {
+  position: absolute;
+  top: calc(var(--input-height) + .5em);
   max-width: var(--width);
   font-size: 16px;
   border-color: #cbd5e0;
@@ -45,6 +102,10 @@ button {
   padding: var(--header-padding);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  .title {
+    font-weight: bold;
+  }
   .btn {
     color: #718096;
     pointer-events: auto;
@@ -62,10 +123,19 @@ button {
   .btn:focus {
     border-color: #e2e8f0;
   }
+  .btn:active,
+  .btn:focus,
+  .btn:hover {
+    outline: none;
+  }
+  .arrow-svg-icon {
+    @include size(24px);
+  }
 }
 
 .picker-body {
   .weekDays {
+    margin-top: .5em;
     width: 100%;
     display: flex;
     padding: var(--weekDays-padding);
@@ -77,23 +147,29 @@ button {
     text-align: center;
     color: #a0aec0;
   }
+  .weeks-warp {
+    min-height: 200px;
+    overflow: hidden;
+  }
   .weeks {
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    margin: 0.25em 0;
+    flex-wrap: wrap;
+    margin-bottom: .5em;
   }
   .days {
     position: relative;
+    flex-basis: calc(100% / 7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: .25em;
   }
-  .days.active .day-layer,
-  .days.today .day-layer{
-    width: 100%;
-    height: 100%;
-    background: #0074D8;
+  .day-layer {
+    @include size(#{var(--day-content-size)});
+    background: transparent;
     position: absolute;
     top: 0;
-    left: 0;
     overflow: hidden;
     border-radius: 9999px;
   }
@@ -110,14 +186,52 @@ button {
     font-weight: 500;
     position: relative;
     z-index: 1;
+    transition: background .2s;
   }
   .day-box:hover,
   .day-box:focus {
     background: var(--day-content-bg-color-hover);
   }
-  .days.active .day-box,
-  .days.today .day-box {
-    color: #fff;
-    font-weight: 700;
+  .days.active {
+    .day-layer {
+      background: var(--active-color);
+    }
+    .day-box {
+      color: #fff;
+      font-weight: 700;
+    }
   }
+  .days.today {
+    .day-layer {
+      background: var(--day-content-bg-color-hover);
+    }
+    .day-box {
+      font-weight: 600;
+    }
+  }
+}
+
+.fadeX_Prev-enter-active,
+.fadeX_Prev-leave-active,
+.fadeX_Next-enter-active,
+.fadeX_Next-leave-active,
+.fadeY-enter-active,
+.fadeY-leave-active {
+  transition: all .3s;
+}
+.fadeX_Prev-enter {
+  transform: translateX(-100px);
+  opacity: 0;
+}
+.fadeX_Prev-leave-active {
+  transform: translateX(100px);
+  opacity: 0;
+}
+.fadeX_Next-enter {
+  transform: translateX(100px);
+  opacity: 0;
+}
+.fadeX_Next-leave-active {
+  transform: translateX(-100px);
+  opacity: 0;
 }

@@ -4,21 +4,19 @@ import DatePicker from './../components/Pickers/DatePicker.vue';
 Vue.use(VueCompositionApi)
 
 export default {
-  title: 'test/DatePicker',
+  title: 'Custom/Picker/DatePicker',
   component: DatePicker,
   argTypes: {
-    backgroundColor: { control: 'color' },
+    activeColor: { control: 'color' },
   },
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { DatePicker },
-  template: '<DatePicker />',
+  template: '<DatePicker v-bind="$props"/>',
 });
 
-export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: 'Button',
+export const signal = Template.bind({});
+signal.args = {
 };
