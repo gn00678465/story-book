@@ -10,7 +10,7 @@ $bg: #f1f1f1;
   display: flex;
   cursor: pointer;
   background: rgba(68,68,68,0.7);
-  overflow: hidden;
+  overflow-x: hidden;
   overflow-y: overlay;
 }
 .Modal-Card {
