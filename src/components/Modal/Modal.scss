@@ -43,14 +43,14 @@ h1,h2,h3,h4,h5,h6 {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     pointer-events: auto;
     max-width: 780px;
-    width: calc(100% - 30px);
+    width: calc(100% - #{var(--round-space)});
     &.xl {
       max-width: 1080px;
-      width: calc(100% - 30px);
+      width: calc(100% - #{var(--round-space)});
     }
     &.sm {
       max-width: 460px;
-      width: calc(100% - 30px);
+      width: calc(100% - #{var(--round-space)});
     }
   }
   &-header {

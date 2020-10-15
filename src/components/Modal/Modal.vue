@@ -62,6 +62,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    roundSpace: {
+      type: Number,
+      default: 15,
+    },
   },
   directives: {
     'show-modal': {
@@ -93,6 +97,7 @@ export default defineComponent({
       rootStyle: computed(() => {
         return {
           '--transition': '0.2s',
+          '--round-space': `${props.roundSpace * 2}px`
         };
       }),
       disableDirective: computed(() => {
