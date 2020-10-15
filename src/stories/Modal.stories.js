@@ -17,7 +17,7 @@ const Template = (args, { argTypes }) => ({
   `,
 });
 
-export const Modal_1 = Template.bind({});
-Modal_1.args = {
+export const Modal_old = Template.bind({});
+Modal_old.args = {
   show: false,
 };

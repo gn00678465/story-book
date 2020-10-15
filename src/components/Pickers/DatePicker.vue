@@ -30,9 +30,11 @@ const DatePicker = defineComponent({
         };
         el.__vueClickEventHandler__ = ourClickEventHandler;
         document.addEventListener("click", ourClickEventHandler);
+        document.addEventListener("touchstart", ourClickEventHandler);
       },
       unbind: function(el) {
         document.removeEventListener("click", el.__vueClickEventHandler__);
+        document.removeEventListener("touchstart", el.__vueClickEventHandler__);
       },
     },
   },
