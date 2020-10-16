@@ -1,0 +1,96 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+  padding: 0;
+}
+
+.drawer {
+  &-wrap {
+    font-size: 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    z-index: 999;
+    overflow: hidden;
+  }
+  &-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: var(--mask);
+  }
+  &-content {
+    background-color: #fff;
+    z-index: 1000;
+    height: 100%;
+    position: relative;
+    transform: translateX(0%);
+  }
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .title {
+      margin: 0;
+      line-height: 1.5;
+      color: rgba(0, 0, 0, 0.85);
+      font-weight: 700;
+      font-size: 1.5em;
+      word-wrap: break-word;
+    }
+  }
+  &-main {
+    margin-top: 1em;
+  }
+}
+
+.left {
+  padding: 1em;
+  max-width: var(--width);
+  align-self: start;
+  min-height: 100%;
+  margin-right: auto;
+}
+
+.right {
+  padding: 1em;
+  max-width: var(--width);
+  align-self: start;
+  min-height: 100%;
+  margin-left: auto;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity var(--transition);
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-delay: var(--transition);
+  transition: transform var(--transition) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.slide-left-enter,
+.slide-left-leave-to {
+  transform: translateX(-100%);
+}
+.slide-right-enter,
+.slide-right-leave-to {
+  transform: translateX(100%);
+}
