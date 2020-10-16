@@ -20,7 +20,7 @@
           </slot>
         </footer>
       </div>
-      <div class="modal-overlay" @click.self='onClose'></div>
+      <div class="modal-overlay" @click.self='onClose(maskClosable)'></div>
     </div>
   </transition>
 </template>
@@ -66,6 +66,18 @@ export default defineComponent({
       type: Number,
       default: 15,
     },
+    transition: {
+      type: Number,
+      default: 200,
+    },
+    mask: {
+      type: Boolean,
+      default: true,
+    },
+    maskClosable: {
+      type: Boolean,
+      default: true,
+    },
   },
   directives: {
     'show-modal': {
@@ -87,8 +99,10 @@ export default defineComponent({
     const modal = ref(null);
     const data = reactive({
       scrollable: false,
-      onClose() {
-        context.emit('update:visible', false)
+      onClose(val = true) {
+        if(val) {
+          context.emit('update:visible', false)
+        }
       },
       onOk() {
         context.emit('emitOk');
@@ -96,8 +110,9 @@ export default defineComponent({
       },
       rootStyle: computed(() => {
         return {
-          '--transition': '0.2s',
-          '--round-space': `${props.roundSpace * 2}px`
+          '--transition': `${props.transition / 1000}s`, 
+          '--round-space': `${props.roundSpace * 2}px`,
+          '--mask': props.mask ? 'rgba(0,0,0, .5)' : 'rgba(0,0,0,0)'
         };
       }),
       disableDirective: computed(() => {
